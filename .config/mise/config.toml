@@ -1,0 +1,52 @@
+[settings]
+lockfile = true
+
+[tasks.install]
+description = "Install pinned tools and project dependencies"
+depends = ["elixir:install"]
+
+[tasks.setup]
+description = "Create/migrate/seed the database and build assets"
+depends = ["elixir:install"]
+run = "mix setup"
+
+[tasks.dev]
+description = "Run the Phoenix development server"
+depends = ["elixir:install"]
+run = "mix phx.server"
+
+[tasks.tasks]
+description = "List available project tasks"
+run = "mise tasks"
+
+[tasks.fmt]
+description = "Format the project"
+depends = ["elixir:fmt"]
+
+[tasks."fmt:check"]
+description = "Check formatting"
+depends = ["elixir:fmt:check"]
+
+[tasks.lint]
+description = "Run static analysis"
+depends = ["elixir:lint"]
+
+[tasks.test]
+description = "Run tests"
+depends = ["elixir:test"]
+
+[tasks.check]
+description = "Run formatting, static analysis, and tests"
+depends = ["check:local"]
+
+[tasks."check:local"]
+description = "Run the local quality gate"
+depends = ["elixir:check"]
+
+[tasks.ci]
+description = "Run the extended local quality gate"
+depends = ["ci:local"]
+
+[tasks."ci:local"]
+description = "Run dependency, docs, coverage, and security checks"
+depends = ["elixir:ci"]
